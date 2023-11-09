@@ -1,13 +1,11 @@
 
 import css from './contactlist.module.css'
 
-// import { contactsReducer } from 'redux/contactsSlice'
-
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectStatusFilter, selectContacts} from "redux/selectors";
 import { useEffect } from 'react';
-import { fetchContacts } from 'redux/operation';
+import { fetchContacts, deleteContact } from 'redux/operation';
 
 function ContactsList() {
   const {items, isLoading, error} = useSelector(selectContacts);
@@ -29,7 +27,7 @@ function ContactsList() {
       <li key={id} className={css.item}>{name}: {number}
         <button
           type='button'
-          // onClick={() => dispatch(deleteContact(id))}
+          onClick={() => dispatch(deleteContact(id))}
           className={css.btn}
         >Delete</button>
       </li>
@@ -39,7 +37,7 @@ function ContactsList() {
 
   return (
     <div className={css.wrapper}>
-      {isLoading && <p>Loading, pls wait...</p>}
+      {isLoading && !error && <p>Loading, pls wait...</p>}
       {error && <p>{ error }</p>}
       {items.length > 0 && renderContactsHandler()}
     </div>
