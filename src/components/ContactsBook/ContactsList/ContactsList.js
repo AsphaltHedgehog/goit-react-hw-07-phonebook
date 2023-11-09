@@ -1,29 +1,35 @@
 
 import css from './contactlist.module.css'
 
-import { deleteContact } from 'redux/contactsSlice'
+// import { contactsReducer } from 'redux/contactsSlice'
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { getContacts, getStatusFilter} from "redux/selectors";
+import { selectStatusFilter, selectContacts} from "redux/selectors";
+import { useEffect } from 'react';
+import { fetchContacts } from 'redux/operation';
 
 function ContactsList() {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getStatusFilter);
+  const {items, isLoading, error} = useSelector(selectContacts);
+  const filter = useSelector(selectStatusFilter);
 
 
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(fetchContacts())
+  }, [dispatch])
+
   const renderContactsHandler = () => {
     
-    const filteredList = contacts.filter((contact) =>
+    const filteredList = items.filter((contact) =>
       contact.name.toLowerCase().includes(filter.toLowerCase()));
 
     return filteredList.map(({ id, name, number }) => (
       <li key={id} className={css.item}>{name}: {number}
         <button
           type='button'
-          onClick={() => dispatch(deleteContact(id))}
+          // onClick={() => dispatch(deleteContact(id))}
           className={css.btn}
         >Delete</button>
       </li>
@@ -33,7 +39,9 @@ function ContactsList() {
 
   return (
     <div className={css.wrapper}>
-      {renderContactsHandler()}
+      {isLoading && <p>Loading, pls wait...</p>}
+      {error && <p>{ error }</p>}
+      {items.length > 0 && renderContactsHandler()}
     </div>
   );
 };

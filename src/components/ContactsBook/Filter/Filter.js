@@ -5,11 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { setContactsFilter } from 'redux/filterSlice';
 
-
-import {getStatusFilter} from "redux/selectors";
+import {selectStatusFilter} from "redux/selectors";
 
 function Filter() {
-  const filter = useSelector(getStatusFilter);
+  const filter = useSelector(selectStatusFilter);
   const dispatch = useDispatch()
   return (
     <input

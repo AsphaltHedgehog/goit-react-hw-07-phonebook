@@ -1,10 +1,13 @@
 import { useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
+// import {
+//   // useDispatch,
+//   // useSelector
+// } from "react-redux";
 
-import { addContact } from 'redux/contactsSlice';
+// import { addContact } from 'redux/contactsSlice';
 
-import { getContacts} from "redux/selectors";
+// import { getContacts} from "redux/selectors";
 
 
 import css from './contactform.module.css'
@@ -13,40 +16,42 @@ function ContactsForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const contacts = useSelector(getContacts);
+  // const contacts = useSelector(getContacts);
 
 
-  const handleSubmit = event => {
-    event.preventDefault();
+  // const handleSubmit = event => {
+  //   event.preventDefault();
 
-    if (contacts.find((contact) => contact.name === name || contact.number === number)) {
-      alert('this contact already exist');
-      return;
-    }
+  //   if (contacts.find((contact) => contact.name === name || contact.number === number)) {
+  //     alert('this contact already exist');
+  //     return;
+  //   }
 
-    if (name.trim() === '' || number.trim() === '') {
-      alert('Enter a name and number');
-      reset()
-      return;
-    };
+  //   if (name.trim() === '' || number.trim() === '') {
+  //     alert('Enter a name and number');
+  //     reset()
+  //     return;
+  //   };
 
-    dispatch(addContact({name, number}));
+  //   dispatch(addContact({name, number}));
 
-    reset();
-  };
+  //   reset();
+  // };
 
-  const reset = () => {
-    setName('');
-    setNumber('');
-  };
+  // const reset = () => {
+  //   setName('');
+  //   setNumber('');
+  // };
 
   
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className={css.form}>
+      <form
+        // onSubmit={handleSubmit}
+        className={css.form}>
         <label className={css.label}>
           Name
           <input
